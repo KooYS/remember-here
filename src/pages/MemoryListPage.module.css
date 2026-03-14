@@ -1,0 +1,121 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: #fff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f2f4f6;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: #333d4b;
+}
+
+.headerTitle {
+  font-size: 17px;
+  font-weight: 600;
+  color: #191f28;
+  margin: 0;
+}
+
+.content {
+  flex: 1;
+  padding: 0;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #8b95a1;
+  font-size: 15px;
+  gap: 16px;
+}
+
+.createButton {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #3182f6;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f2f4f6;
+  gap: 12px;
+}
+
+.itemContent {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.thumbnail {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemText {
+  font-size: 15px;
+  color: #333d4b;
+  margin: 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemMeta {
+  font-size: 12px;
+  color: #8b95a1;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  color: #e8344e;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px 8px;
+  flex-shrink: 0;
+}

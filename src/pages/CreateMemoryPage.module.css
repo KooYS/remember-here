@@ -1,0 +1,170 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: #fff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f2f4f6;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: #333d4b;
+}
+
+.headerTitle {
+  font-size: 17px;
+  font-weight: 600;
+  color: #191f28;
+  margin: 0;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.photoSection {
+  width: 100%;
+}
+
+.photoButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.photoButton {
+  flex: 1;
+  padding: 40px 16px;
+  border: 2px dashed #d5dbe2;
+  border-radius: 12px;
+  background: #f9fafb;
+  color: #6b7684;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.photoButton:active {
+  background: #f2f4f6;
+}
+
+.photoPreview {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.previewImage {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.removePhoto {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textInput {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e5e8eb;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #333d4b;
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.textInput:focus {
+  border-color: #3182f6;
+}
+
+.linkInput {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e5e8eb;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #333d4b;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.linkInput:focus {
+  border-color: #3182f6;
+}
+
+.locationInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 14px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.locationIcon {
+  font-size: 14px;
+}
+
+.locationText {
+  font-size: 13px;
+  color: #6b7684;
+}
+
+.footer {
+  padding: 16px 20px 32px;
+}
+
+.saveButton {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #3182f6;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.saveButton:disabled {
+  background: #b0c4de;
+  cursor: not-allowed;
+}
+
+.saveButton:not(:disabled):active {
+  background: #1b64da;
+}

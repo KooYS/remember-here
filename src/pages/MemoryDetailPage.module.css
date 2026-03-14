@@ -1,0 +1,111 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: #fff;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  color: #8b95a1;
+  font-size: 15px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f2f4f6;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: #333d4b;
+}
+
+.headerTitle {
+  font-size: 17px;
+  font-weight: 600;
+  color: #191f28;
+  margin: 0;
+}
+
+.deleteHeaderButton {
+  background: none;
+  border: none;
+  color: #e8344e;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.content {
+  flex: 1;
+}
+
+.photo {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333d4b;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.link {
+  font-size: 14px;
+  color: #3182f6;
+  word-break: break-all;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.meta {
+  padding: 14px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metaRow {
+  display: flex;
+  gap: 12px;
+}
+
+.metaLabel {
+  font-size: 13px;
+  color: #8b95a1;
+  width: 36px;
+  flex-shrink: 0;
+}
+
+.metaValue {
+  font-size: 13px;
+  color: #333d4b;
+}
