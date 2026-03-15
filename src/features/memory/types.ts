@@ -3,8 +3,8 @@ export interface Memory {
   photo: string | null;
   text: string;
   link: string;
-  latitude: number;
-  longitude: number;
+  latitude: number | null;
+  longitude: number | null;
   address: string;
   createdAt: string;
 }

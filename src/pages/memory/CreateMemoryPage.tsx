@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentLocation } from '../hooks/useCurrentLocation';
-import { useMemories } from '../hooks/useMemories';
-import { reverseGeocode } from '../lib/geocode';
+import { useCurrentLocation } from '../../shared/hooks/useCurrentLocation';
+import { useMemories } from '../../features/memory';
+import { reverseGeocode } from '../../shared/lib/geocode';
+import { pickImageFromFile } from '../../shared/lib/pickImage';
 import styles from './CreateMemoryPage.module.css';
 
 export default function CreateMemoryPage() {
@@ -30,21 +31,12 @@ export default function CreateMemoryPage() {
     try {
       const { openCamera } = await import('@apps-in-toss/web-framework');
       const response = await openCamera({ base64: true });
-      setPhoto('data:image/jpeg;base64,' + response.dataUri);
+      const dataUri = response.dataUri.startsWith('data:')
+        ? response.dataUri
+        : 'data:image/jpeg;base64,' + response.dataUri;
+      setPhoto(dataUri);
     } catch {
-      // 브라우저 fallback
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.capture = 'environment';
-      input.onchange = (e) => {
-        const file = (e.target as HTMLInputElement).files?.[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = () => setPhoto(reader.result as string);
-        reader.readAsDataURL(file);
-      };
-      input.click();
+      pickImageFromFile(setPhoto, 'environment');
     }
   };
 
@@ -53,26 +45,29 @@ export default function CreateMemoryPage() {
       const { fetchAlbumPhotos } = await import('@apps-in-toss/web-framework');
       const response = await fetchAlbumPhotos({ base64: true, maxWidth: 720 });
       if (response.length > 0) {
-        setPhoto('data:image/jpeg;base64,' + response[0].dataUri);
+        const dataUri = response[0].dataUri.startsWith('data:')
+          ? response[0].dataUri
+          : 'data:image/jpeg;base64,' + response[0].dataUri;
+        setPhoto(dataUri);
       }
     } catch {
-      // 브라우저 fallback
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.onchange = (e) => {
-        const file = (e.target as HTMLInputElement).files?.[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = () => setPhoto(reader.result as string);
-        reader.readAsDataURL(file);
-      };
-      input.click();
+      pickImageFromFile(setPhoto);
     }
   };
 
   const handleSave = async () => {
     if (!text.trim()) return;
+
+    if (text.length > 1000) {
+      alert('텍스트는 1000자를 초과할 수 없습니다.');
+      return;
+    }
+
+    if (link.trim() && !/^https?:\/\//i.test(link.trim())) {
+      alert('링크는 http:// 또는 https://로 시작해야 합니다.');
+      return;
+    }
+
     setSaving(true);
 
     try {
@@ -80,14 +75,15 @@ export default function CreateMemoryPage() {
         photo,
         text: text.trim(),
         link: link.trim(),
-        latitude,
-        longitude,
+        latitude: latitude || null,
+        longitude: longitude || null,
         address,
         createdAt: new Date().toISOString(),
       });
       navigate('/list');
     } catch (err) {
-      console.error('저장 실패:', err);
+      const message = err instanceof Error ? err.message : '저장에 실패했습니다.';
+      alert(message);
       setSaving(false);
     }
   };
@@ -95,7 +91,7 @@ export default function CreateMemoryPage() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <button className={styles.backButton} onClick={() => navigate(-1)}>
+        <button className={styles.backButton} onClick={() => navigate(-1)} aria-label="뒤로">
           ←
         </button>
         <h2 className={styles.headerTitle}>기억 남기기</h2>
@@ -108,7 +104,7 @@ export default function CreateMemoryPage() {
           {photo ? (
             <div className={styles.photoPreview}>
               <img src={photo} alt="미리보기" className={styles.previewImage} />
-              <button className={styles.removePhoto} onClick={() => setPhoto(null)}>
+              <button className={styles.removePhoto} onClick={() => setPhoto(null)} aria-label="사진 제거">
                 ×
               </button>
             </div>
@@ -131,6 +127,7 @@ export default function CreateMemoryPage() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={4}
+          maxLength={1000}
         />
 
         {/* 링크 입력 */}

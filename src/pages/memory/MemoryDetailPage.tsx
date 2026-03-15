@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useMemories } from '../hooks/useMemories';
+import { useMemories } from '../../features/memory';
+import { formatDateLong } from '../../shared/lib/formatDate';
 import styles from './MemoryDetailPage.module.css';
 
 export default function MemoryDetailPage() {
@@ -7,11 +8,6 @@ export default function MemoryDetailPage() {
   const navigate = useNavigate();
   const { memories, loading, deleteMemory } = useMemories();
   const memory = memories.find((m) => m.id === id);
-
-  const formatDate = (iso: string) => {
-    const d = new Date(iso);
-    return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-  };
 
   const handleDelete = async () => {
     if (!memory) return;
@@ -27,7 +23,7 @@ export default function MemoryDetailPage() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <button className={styles.backButton} onClick={() => navigate('/list')}>
+        <button className={styles.backButton} onClick={() => navigate('/list')} aria-label="뒤로">
           ←
         </button>
         <h2 className={styles.headerTitle}>기억 상세</h2>
@@ -62,7 +58,7 @@ export default function MemoryDetailPage() {
             </div>
             <div className={styles.metaRow}>
               <span className={styles.metaLabel}>시간</span>
-              <span className={styles.metaValue}>{formatDate(memory.createdAt)}</span>
+              <span className={styles.metaValue}>{formatDateLong(memory.createdAt)}</span>
             </div>
           </div>
         </div>
